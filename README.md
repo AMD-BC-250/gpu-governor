@@ -1,6 +1,6 @@
-# Oberon GPU Governor
+# AMD BC-250 GPU Governor
 
-A simple daemon for AMD Oberon based systems that automatically governs GPU voltage and frequency based on load and temperature.
+A simple daemon for AMD Cyan Skillfish based systems that automatically governs GPU voltage and frequency based on load and temperature.
 
 Testing is only performed on the ASRock BC-250.
 
@@ -9,10 +9,13 @@ Testing is only performed on the ASRock BC-250.
 - CMake
 - A C++ toolchain
 - libdrm
+- yaml-cpp
+
 
 ## Configuration
 
-- A configuration file is installed to /etc/oberon-config.yaml. This allows the maximum and minimum voltage and frequency to be set.
+- A configuration file is installed to /etc/amd-bc-250-gpu-governor.yaml. This allows the maximum and minimum voltage and frequency to be set.
+
 
 ## Limitations
 
