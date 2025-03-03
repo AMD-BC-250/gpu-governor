@@ -14,14 +14,16 @@ const Oberon::PCIID Oberon::ids[] = {
 	{ 0x1002, 0x13fe }, // CYAN_SKILLFISH2
 };
 
+#define config_path "/etc/amd-bc-250-gpu-governor.yaml"
+
 const Oberon::OPP Oberon::opps[] = { 
     { 
-      	YAML::LoadFile("/etc/oberon-config.yaml")["opps"][0]["frequency"][0]["min"].as<int>(), 
-        YAML::LoadFile("/etc/oberon-config.yaml")["opps"][1]["voltage"][0]["min"].as<int>()
+        YAML::LoadFile(config_path)["opps"][0]["frequency"][0]["min"].as<int>(),
+        YAML::LoadFile(config_path)["opps"][1]["voltage"][0]["min"].as<int>()
     },  
     { 
-      	YAML::LoadFile("/etc/oberon-config.yaml")["opps"][0]["frequency"][1]["max"].as<int>(), 
-        YAML::LoadFile("/etc/oberon-config.yaml")["opps"][1]["voltage"][1]["max"].as<int>()
+        YAML::LoadFile(config_path)["opps"][0]["frequency"][1]["max"].as<int>(),
+        YAML::LoadFile(config_path)["opps"][1]["voltage"][1]["max"].as<int>()
     } 
 };
 
