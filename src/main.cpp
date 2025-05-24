@@ -1,7 +1,9 @@
 #include <cstdlib>
-#include <format>
 #include <iostream>
 #include <signal.h>
+
+#include <spdlog/spdlog.h>
+
 #include "governor.hpp"
 #include "oberon.hpp"
 
@@ -29,12 +31,12 @@ int main(int argc, char *argv[]) {
 			}
 		}
 		if (found) { // Print help text and exit
-			std::cout << help_text;
+            spdlog::info(help_text);
 			std::exit(EXIT_SUCCESS);
 		}
 
 		// Unknown argument
-		std::cout << std::format("Unknown argument '{}'", argv[i]) << std::endl;
+        spdlog::error("Unknown argument '{}'", argv[i]);
 		std::exit(EXIT_FAILURE);
 	}
 
@@ -45,7 +47,7 @@ int main(int argc, char *argv[]) {
 	for (const int s : { SIGHUP, SIGINT, SIGQUIT, SIGTERM })
 		signal(s, stop);
 
-	std::cout << "Starting governor" << std::endl;
+    spdlog::info("Starting governor");
 	governor.run();
-	std::cout << "Stopping governor" << std::endl;
+    spdlog::info("Stopping governor");
 }

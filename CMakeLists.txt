@@ -2,10 +2,10 @@
 # Project
 #
 
-cmake_minimum_required(VERSION 3.20.0)
+cmake_minimum_required(VERSION 3.10)
 
 project(amd-bc-250-gpu-governor
-    VERSION 0.2.0
+    VERSION 0.2.1
     LANGUAGES CXX
 )
 
@@ -22,6 +22,9 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBDRM REQUIRED libdrm)
 pkg_check_modules(LIBDRM_AMDGPU REQUIRED libdrm_amdgpu)
 
+include(cmake/cpm.cmake)
+include(cmake/cpm-fmtlib.cmake)
+include(cmake/cpm-spdlog.cmake)
 
 
 #
@@ -36,8 +39,8 @@ add_executable(amd-bc-250-gpu-governor
 	src/main.cpp
 )
 
-set_target_properties(amd-bc-250-gpu-governor PROPERTIES CXX_STANDARD 20)
-set_target_properties(amd-bc-250-gpu-governor PROPERTIES CXX_STANDARD_REQUIRD ON)
+set_target_properties(amd-bc-250-gpu-governor PROPERTIES CXX_STANDARD 17)
+set_target_properties(amd-bc-250-gpu-governor PROPERTIES CXX_STANDARD_REQUIRED ON)
 
 target_compile_definitions(amd-bc-250-gpu-governor PRIVATE GOVERNOR_VERSION="${PROJECT_VERSION}")
 
@@ -45,6 +48,8 @@ target_include_directories(amd-bc-250-gpu-governor PRIVATE ${LIBDRM_INCLUDE_DIRS
 target_link_libraries(amd-bc-250-gpu-governor PRIVATE ${LIBDRM_LIBRARIES} ${LIBDRM_AMDGPU_LIBRARIES})
 
 target_link_libraries(amd-bc-250-gpu-governor PRIVATE yaml-cpp::yaml-cpp)
+target_link_libraries(amd-bc-250-gpu-governor PRIVATE fmt::fmt spdlog::spdlog)
+
 install(
     TARGETS amd-bc-250-gpu-governor
     DESTINATION "bin"

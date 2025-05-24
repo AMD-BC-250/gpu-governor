@@ -1,9 +1,13 @@
 #include <chrono>
-#include <format>
 #include <iostream>
 #include <thread>
+
+#include <spdlog/spdlog.h>
+
 #include "governor.hpp"
 #include "oberon.hpp"
+
+
 
 void Governor::run() {
 	int load, up = 0, down = 0, overheat = 0;
@@ -17,7 +21,7 @@ void Governor::run() {
 			opp = 0;
 			overheat = (GOV_OVERHEAT_RESET_MS / GOV_POLLING_DELAY_MS);
 			if (!overheat_warned) {
-				std::cerr << std::format("[{}] GPU overheated, throttling - Silencing future warnings of this type", std::chrono::system_clock::now()) << std::endl;
+                spdlog::error("GPU overheated, throttling - Silencing future warnings of this type");
 				overheat_warned = true;
 			}
 			goto end;
